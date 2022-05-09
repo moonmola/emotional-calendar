@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,8 +12,6 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.moonmola.emotional_calendar.data.Emotion
 import com.moonmola.emotional_calendar.adapter.EmotionAdapter
 import com.moonmola.emotional_calendar.databinding.FragmentChooseEmotionBinding
-import com.moonmola.emotional_calendar.databinding.FragmentWriteDiaryBinding
-import com.moonmola.emotional_calendar.viewmodels.WriteDiaryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import javax.inject.Inject
@@ -36,7 +33,7 @@ class ChooseEmotionFragment: Fragment() ,EmotionAdapter.ClickListener {
     ): View {
         binding = FragmentChooseEmotionBinding.inflate(inflater, container, false)
         val items = ArrayList<Emotion>()
-        items.add(Emotion("Love", R.drawable.love, R.raw.ani_love))
+        items.add(Emotion("Good", R.drawable.good, R.raw.ani_good))
         items.add(Emotion("Soso", R.drawable.soso, R.raw.ani_soso))
         items.add(Emotion("Sad", R.drawable.sad, R.raw.ani_sad))
         items.add(Emotion("Gloom", R.drawable.gloom, R.raw.ani_gloom))
