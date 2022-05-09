@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/nav_graph"
+        app:startDestination="@id/homeViewPagerFragment">
+
+    <fragment
+            android:id="@+id/homeViewPagerFragment"
+            android:name="com.moonmola.emotional_calendar.HomeViewPagerFragment"
+            android:label="HomeViewPagerFragment" >
+
+        <action
+                android:id="@+id/action_homeViewPagerFragment_to_writeDiaryFragment"
+                app:destination="@id/writeDiaryFragment" />
+    </fragment>
+
+    <fragment
+            android:id="@+id/writeDiaryFragment"
+            android:name="com.moonmola.emotional_calendar.WriteDiaryFragment"
+            android:label="WriteDiaryFragment" >
+        <argument
+                android:name="date"
+                app:argType="java.time.LocalDate" />
+        <action
+                android:id="@+id/action_writeDiaryFragment_to_homeViewPagerFragment"
+                app:destination="@id/homeViewPagerFragment" />
+    </fragment>
+</navigation>
