@@ -58,6 +58,9 @@ dependencies {
 	implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleVersion"
 	implementation "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycleVersion"
 	implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
+	implementation "androidx.lifecycle:lifecycle-runtime-ktx:$rootProject.lifecycleVersion"
+	implementation "androidx.lifecycle:lifecycle-process:$rootProject.lifecycleVersion"
+
 	implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
 	implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
 
@@ -66,4 +69,6 @@ dependencies {
 	kapt "androidx.room:room-compiler:$rootProject.roomVersion"
 
 	implementation "com.google.code.gson:gson:2.8.6"
+
+	implementation 'com.github.bumptech.glide:glide:4.11.0'
 }

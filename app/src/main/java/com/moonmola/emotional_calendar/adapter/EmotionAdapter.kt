@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.moonmola.emotional_calendar.R
 import com.moonmola.emotional_calendar.databinding.ItemEmotionBinding
 import javax.inject.Inject
 import com.moonmola.emotional_calendar.data.Emotion
@@ -13,21 +15,26 @@ class EmotionAdapter@Inject constructor():
     RecyclerView.Adapter<EmotionAdapter.VH>() {
     var itemList: List<Emotion> = ArrayList()
     var callback: ClickListener? = null
+    var selectedPosition = 10
 
     inner class VH(private val binding: ItemEmotionBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(emotion: Emotion) {
-            binding.emotion.background = ContextCompat.getDrawable(binding.emotion.context, emotion.drawable)
+            if (position == selectedPosition) {
+                Glide.with(binding.root)
+                    .load(emotion.gif)
+                    .into(binding.emotion)
+
+            } else {
+                Glide.with(binding.root)
+                    .load(emotion.drawable)
+                    .into(binding.emotion)
+            }
             binding.textEmotion.text = emotion.name
             binding.root.setOnClickListener {
+                selectedPosition = position
+                notifyDataSetChanged()
+
                 callback?.onEmotionClick(emotion)
-                binding.emotion.animate()
-                    .setDuration(300)
-                    .scaleX(1.2f)
-                    .scaleY(1.2f)
-                    .withEndAction {
-                        binding.emotion.scaleX = 1f
-                        binding.emotion.scaleY = 1f}
-                    .start()
             }
         }
 

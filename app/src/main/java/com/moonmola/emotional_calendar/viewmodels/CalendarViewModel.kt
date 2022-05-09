@@ -5,9 +5,15 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import androidx.navigation.fragment.findNavController
+import com.moonmola.emotional_calendar.HomeViewPagerFragmentDirections
+import com.moonmola.emotional_calendar.data.Diary
 import com.moonmola.emotional_calendar.data.DiaryRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import java.time.YearMonth
 
@@ -18,6 +24,7 @@ class CalendarViewModel @Inject constructor(
 ) : ViewModel() {
     var currentYearMonth = MutableLiveData<YearMonth>()
     var calendar = MutableLiveData<Map<String,Int>>()
+
 
     fun onScrollMonth(current:YearMonth){
         this.currentYearMonth.value = current
@@ -33,6 +40,5 @@ class CalendarViewModel @Inject constructor(
             calendar.postValue(map)
         }
     }
-
 
 }

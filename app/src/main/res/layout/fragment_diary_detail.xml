@@ -14,7 +14,7 @@
             >
 
         <ImageView
-                android:id="@+id/image_write_emotion"
+                android:id="@+id/image_emotion"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center"
@@ -32,7 +32,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image_write_emotion" />
+                app:layout_constraintTop_toBottomOf="@+id/image_emotion" />
 
         <TextView
                 android:id="@+id/diary_week"
@@ -46,30 +46,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/diary_date" />
 
 
-        <EditText
-                android:id="@+id/edit_write_diary"
+        <TextView
+                android:id="@+id/content_diary"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:autofillHints="true"
-                android:fontFamily="@font/acc_font"
-                android:gravity="left"
-                android:hint="@string/edit_text"
-                android:inputType="textMultiLine"
-                android:lineSpacingExtra="4dp"
                 android:background="@null"
-                app:layout_constraintBottom_toTopOf="@+id/done_button"
+                android:gravity="left"
+                android:lineSpacingExtra="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/diary_week" />
 
-        <Button
-                android:id="@+id/done_button"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/ic_baseline_done_24"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

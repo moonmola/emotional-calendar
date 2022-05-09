@@ -14,6 +14,7 @@ import com.moonmola.emotional_calendar.databinding.ItemCalendarDayBinding
 import com.moonmola.emotional_calendar.viewmodels.CalendarViewModel
 import java.time.DayOfWeek
 import java.time.LocalDate
+import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.HashMap
@@ -24,10 +25,11 @@ class CalendarDayBinder (private val calendarView: CalendarView
     var input: Input? = null
 
     fun updateCalendar(
-        calendar: Map<String,Int>,
+        calendar: Map<String,Int>
     ) {
         this.calendar = calendar
         this.calendarView.notifyCalendarChanged()
+
     }
 
     override fun create(view: View): DayContainer {
@@ -41,18 +43,21 @@ class CalendarDayBinder (private val calendarView: CalendarView
                 container.binding.dayEmoji.visibility = View.VISIBLE
         }?: run{
                 container.binding.dayEmoji.visibility = View.GONE
-
         }
 
         container.binding.tvDay.text = day.date.dayOfMonth.toString()
-
-        container.binding.root.setOnClickListener {
-            input?.onDayClick(day.date)
-        }
-        day.date.year
         if (day.owner != DayOwner.THIS_MONTH){
+            container.binding.tvDay.visibility = View.GONE
+            container.binding.root.setOnClickListener(null)
+        }
+        else if (day.owner != DayOwner.THIS_MONTH || day.date.isAfter(LocalDate.now())){
+            container.binding.root.setOnClickListener(null)
             container.binding.tvDay.setTextColor(ContextCompat.getColor(calendarView.context,R.color.gray))
         }else {
+            container.binding.root.setOnClickListener {
+                input?.onDayClick(day.date)
+            }
+            container.binding.tvDay.visibility = View.VISIBLE
             when(day.date.dayOfWeek){
                 DayOfWeek.SUNDAY -> {
                     container.binding.tvDay.setTextColor(ContextCompat.getColor(calendarView.context,R.color.red))

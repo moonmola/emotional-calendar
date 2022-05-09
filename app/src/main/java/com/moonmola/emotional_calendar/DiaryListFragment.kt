@@ -19,12 +19,11 @@ class DiaryListFragment : Fragment() {
     private val viewModel: DiaryListViewModel by viewModels()
     private lateinit var binding: FragmentDiaryListBinding
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentDiaryListBinding.inflate(inflater, container, false)
         val adapter = DiaryAdapter()
         binding.recyclerDiary.layoutManager = LinearLayoutManager(context)

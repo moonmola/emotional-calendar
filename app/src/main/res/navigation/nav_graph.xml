@@ -11,10 +11,25 @@
             android:label="HomeViewPagerFragment" >
 
         <action
-                android:id="@+id/action_homeViewPagerFragment_to_writeDiaryFragment"
-                app:destination="@id/writeDiaryFragment" />
+                android:id="@+id/action_homeViewPagerFragment_to_diaryDetailFragment"
+                app:destination="@id/diaryDetailFragment"
+                />
+        <action
+                android:id="@+id/action_homeViewPagerFragment_to_chooseEmotionFragment"
+                app:destination="@id/chooseEmotionFragment" />
     </fragment>
 
+    <fragment
+            android:id="@+id/chooseEmotionFragment"
+            android:name="com.moonmola.emotional_calendar.ChooseEmotionFragment"
+            android:label="ChooseEmotionFragment" >
+        <argument
+                android:name="date"
+                app:argType="java.time.LocalDate" />
+        <action
+                android:id="@+id/action_chooseEmotionFragment_to_writeDiaryFragment"
+                app:destination="@id/writeDiaryFragment" />
+    </fragment>
     <fragment
             android:id="@+id/writeDiaryFragment"
             android:name="com.moonmola.emotional_calendar.WriteDiaryFragment"
@@ -22,8 +37,24 @@
         <argument
                 android:name="date"
                 app:argType="java.time.LocalDate" />
+        <argument
+                android:name="currentEmotion"
+                app:argType="com.moonmola.emotional_calendar.data.Emotion"
+                app:nullable="true"/>
+
         <action
-                android:id="@+id/action_writeDiaryFragment_to_homeViewPagerFragment"
+                android:id="@+id/action_writeDDiaryFragment_to_homeViewPagerFragment"
                 app:destination="@id/homeViewPagerFragment" />
     </fragment>
+    <fragment
+            android:id="@+id/diaryDetailFragment"
+            android:name="com.moonmola.emotional_calendar.DiaryDetailFragment"
+            android:label="DiaryDetailFragment">
+
+            <argument
+                    android:name="diaryId"
+                    app:argType="string"/>
+    </fragment>
+
+
 </navigation>

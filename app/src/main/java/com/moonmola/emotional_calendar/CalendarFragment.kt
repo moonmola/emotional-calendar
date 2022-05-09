@@ -1,12 +1,12 @@
 package com.moonmola.emotional_calendar
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.kizitonwose.calendarview.model.CalendarMonth
 import com.kizitonwose.calendarview.ui.MonthScrollListener
 import com.moonmola.emotional_calendar.databinding.FragmentCalendarBinding
@@ -17,11 +17,6 @@ import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.time.temporal.WeekFields
 import java.util.*
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
 @AndroidEntryPoint
 class CalendarFragment : Fragment() {
@@ -51,20 +46,18 @@ class CalendarFragment : Fragment() {
         }
         viewModel.calendar.observe(viewLifecycleOwner) { calendar ->
             binder.updateCalendar(calendar)
-
         }
     }
 
     private fun initCalendarView() = with(binding) {
         binder = CalendarDayBinder(binding.calendarView).apply {
-            input = object : CalendarDayBinder.Input(){
+            input = object : CalendarDayBinder.Input() {
                 override fun onDayClick(date: LocalDate) = dayClick(date)
             }
         }
-        calendarView.monthScrollListener = object: MonthScrollListener {
+        calendarView.monthScrollListener = object : MonthScrollListener {
             override fun invoke(date: CalendarMonth) {
                 viewModel.onScrollMonth(date.yearMonth)
-
             }
 
         }
@@ -80,14 +73,27 @@ class CalendarFragment : Fragment() {
 
     }
 
-    private fun dayClick(date: LocalDate){
-//        binder.updateCalendar(calendar)
-        navigateToWriteDiary(date)
+    private fun dayClick(date: LocalDate) {
+        val diaryId = date.format(
+            DateTimeFormatter.ofPattern("YYYY년 MM월 dd일").withLocale(Locale.forLanguageTag("ko"))
+        )
+        viewModel.calendar.value?.get(diaryId)?.let {
+            navigateToDiaryDetail(diaryId)
+        } ?: run {
+            navigateToWriteDiary(date)
+        }
     }
-    private fun navigateToWriteDiary(date: LocalDate){
-        val direction = HomeViewPagerFragmentDirections.actionHomeViewPagerFragmentToWriteDiaryFragment(date)
-        findNavController().navigate(direction)
 
+    private fun navigateToWriteDiary(date: LocalDate) {
+        val direction =
+            HomeViewPagerFragmentDirections.actionHomeViewPagerFragmentToChooseEmotionFragment(date)
+        findNavController().navigate(direction)
+    }
+
+    private fun navigateToDiaryDetail(diaryId: String) {
+        val direction =
+            HomeViewPagerFragmentDirections.actionHomeViewPagerFragmentToDiaryDetailFragment(diaryId)
+        findNavController().navigate(direction)
     }
 
 }
